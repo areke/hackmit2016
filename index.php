@@ -3,7 +3,5 @@
 
     $content = '';
     echoPage('Home', $content, 0);
-    
-    
 
 ?>
