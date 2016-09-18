@@ -9,6 +9,7 @@ function echoPage($title, $content, $nav, $url){
 <head>
 <link href='bootstrap/css/bootstrap.css' type='text/css' rel='stylesheet'>
 <link href='css/index.css' type='text/css' rel='stylesheet'>
+
 <script src='js/jquery.min.js'></script>
 <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 <script src='js/index.js'></script>
@@ -40,7 +41,8 @@ function echoPage($title, $content, $nav, $url){
             <li><a href="#" class = "changeFont" style="font-family:courier;">Courier</a></li>
             <li><a href="#" class = "changeFont" style="font-family:verdana;">Verdana</a></li>
             <li><a href="#" class = "changeFont" style="font-family:arial;">Arial</a></li>
-            <li><a href="#" class = "changeFont" style="font-family:open dyslexic;">Open Dyslexic</a></li>
+            <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/opendyslexic" type="text/css"/>
+            <li><a href="#" class = "changeFont" style="font-family:opendyslexic;">Open Dyslexic</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -177,32 +179,12 @@ session_start();
     $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
 
-    $curl = curl_init("https://api.quizlet.com/2.0/users/{$_SESSION['username']}/sets");
-    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Authorization: Bearer '.$_SESSION['access_token'], 'Content-type: application/json']);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_POST, 5);
+     // Display the user's sets
 
-    $data = array(
-    "title"    => "HackMIT Vocabulary",
-    "terms" => ['ok', 'ok2'],
-    "definitions" => ['ok2', 'ok']
 
-);
-    $json = json_encode($data);
 
-    $data = json_decode(curl_exec($curl));
-    echo($data);
-    var_dump($data);
-    $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
 
-    // Display the user's sets
-    echo "<p>Found ".count($data)." sets</p>";
-    echo "<ol>";
-    foreach ($data as $set) {
-        echo "<li>".htmlspecialchars($set->title)."</li>"; // Notice that we ensure HTML is displayed safely
-    }
-    echo "</ol>";
+
 
 
 }
